@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import ProductList from './ProductList'
 import AddProduct from './AddProduct'
 import {useDispatch, useSelector} from 'react-redux'
-import {addProduct, startGetProduct,startSingleProduct} from '../../actions/customerAction'
+import {startGetProduct,startSingleProduct} from '../../actions/customerAction'
+import EditProduct from './EditProduct'
 
 const ProductContainer=(props)=>{
    
@@ -29,10 +30,10 @@ const ProductContainer=(props)=>{
 
     return (
         <div>
-            {toggle ? (
+            {toggle && Object.keys(productData).length > 0 ? (
                 <div>
                     <h2>Update Product</h2>
-                    <AddProduct 
+                    <EditProduct 
                         toggle={toggle}
                         handleToggle={handleToggle}
                         {...productData}

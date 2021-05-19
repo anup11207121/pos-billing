@@ -307,6 +307,12 @@ export const editCustomer=(editResult)=>{
     }
 }
 
+export const clearCustData=()=>{
+    return {
+        type : 'CLEAR_CUST_DATA'
+    }
+}
+
 export const getProduct=(getResult)=>{
     return {
         type : 'GET_PRODUCT',
@@ -339,6 +345,12 @@ export const editProduct=(data)=>{
     return {
         type : 'EDIT_PRODUCT',
         payload : data
+    }
+}
+
+export const clearProductData=()=>{
+    return {
+        type : 'CLEAR_PRODUCT_DATA'
     }
 }
 

@@ -33,6 +33,10 @@ const billingReducer=(state= customerInitialState,action)=>{
             return {...state, customerData : action.payload }
         }
 
+        case 'CLEAR_CUST_DATA' : {
+            return {...state,customerData : {} } 
+        }
+
         case 'EDIT_CUSTOMER' :{
             return {
                 ...state,
@@ -68,6 +72,10 @@ const billingReducer=(state= customerInitialState,action)=>{
 
         case 'SINGLE_PRODUCT' : {
             return { ...state, productData: action.payload }
+        }
+
+        case 'CLEAR_PRODUCT_DATA' : {
+            return {...state, productData : {} }
         }
 
         case 'EDIT_PRODUCT' :{

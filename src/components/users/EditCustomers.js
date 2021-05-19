@@ -2,7 +2,7 @@ import React from 'react'
 import {Formik,Field,Form} from 'formik'
 import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux'
-import {startEditCustomer} from '../../actions/customerAction'
+import {startEditCustomer,clearCustData} from '../../actions/customerAction'
 
 const EditCustomers=(props)=>{
     const {toggle,handleToggle,_id, name,email , mobile}=props
@@ -115,6 +115,7 @@ const EditCustomers=(props)=>{
                         value='cancel'
                         onClick={()=>{
                             handleToggle(false)
+                            dispatch(clearCustData())
                         }}     
                     />
                     </div>

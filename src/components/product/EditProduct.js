@@ -2,13 +2,13 @@ import React,{useState} from 'react'
 import {Formik,Field,Form} from 'formik'
 import * as Yup from 'yup'
 import {useDispatch} from 'react-redux'
-import {startAddProduct,startEditProduct} from '../../actions/customerAction'
+import {startEditProduct,clearProductData} from '../../actions/customerAction'
  
-const AddProduct=(props)=>{
-    const {toggle,handleToggle} =props
+const EditProduct=(props)=>{
+    const {toggle,handleToggle,name,price,_id } =props
     const initialValues={
-        name : '',
-        price : 0
+        name : name,
+        price : price
     }
     const dispatch=useDispatch()
 
@@ -21,8 +21,9 @@ const AddProduct=(props)=>{
     } 
 
     const onSubmit=(values,onSubmitProps)=>{
-        onSubmitProps.resetForm()
-        dispatch(startAddProduct(values))        
+            onSubmitProps.resetForm()
+            dispatch(startEditProduct(_id,values))
+            handleToggle(false)
         }
         
     return(
@@ -65,16 +66,30 @@ const AddProduct=(props)=>{
                 {formik.touched.price && (
                     formik.errors.price && <div>{formik.errors.price}</div>    
                 )}
-                </div> 
-                    <div>    
-                        <Field 
-                            type='submit' 
-                            className="btn btn-primary" 
-                            value='Add'
-                            id='Add'
-                        />
-                    </div>    
+                </div>
                 
+                    <div>
+                
+                    <div>
+                        <Field 
+                        type='submit' 
+                        className="btn btn-primary"
+                        value='update'      
+                        id='update'
+                    />
+                    
+                    <Field 
+                        type='submit' 
+                        className="btn btn-primary" 
+                        id='cancel'
+                        value='cancel'
+                        onClick={()=>{
+                            handleToggle(false)
+                            dispatch(clearProductData())
+                        }}    
+                    />
+                    </div>
+                </div>
                 </div>
         </div>        
            
@@ -86,4 +101,4 @@ const AddProduct=(props)=>{
     )
 }
 
-export default AddProduct
+export default EditProduct
