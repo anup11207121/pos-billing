@@ -1,6 +1,7 @@
 img {
-    height: 100vh;
-  background-position: center; 
+    height: 80vh;
+    width: 170vh;
+  background-position: right; 
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }

@@ -42,7 +42,7 @@ const Cart=()=>{
         }        
     }
 
-    console.log(cart)
+    //  console.log('cart',cart)
 
     return (
         <div>
@@ -80,7 +80,7 @@ const Cart=()=>{
                                 
                                 <td><button onClick={()=>{
                                             handleRemove(ele.products._id)
-                                        }} className="btn btn-primary">
+                                        }} className="btn btn-danger">
                                             remove
                                     </button>
                                 </td>

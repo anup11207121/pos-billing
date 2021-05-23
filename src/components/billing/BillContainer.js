@@ -9,6 +9,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import Invoice from './Invoice'
 import {Modal,Button} from 'react-bootstrap'
 
+
 const BillConatiner=(props)=>{
     const [toggle,setToggle]=useState(false)
     const dispatch=useDispatch()
@@ -37,6 +38,14 @@ const BillConatiner=(props)=>{
         dispatch(startSingleBill(id))
     }
 
+    const handleClose=()=>{
+        setToggle(false)
+    }
+
+    const handleShow=()=>{
+        setToggle(true)
+    }
+
     return (
         <div>
             <h1>Billing</h1>
@@ -57,22 +66,24 @@ const BillConatiner=(props)=>{
             <div>
             <BillList handleInvoice={handleInvoice}/>
             {toggle && Object.keys(billData).length>0
-                        ? (
+                        &&
+                        (
                             
-                            <Modal
-                                    isOpen={handleToggle}
-                                    onRequestClose={handleToggle}
-                                    contentLabel="My dialog"
-                                    >
-                                     <div>My modal dialog.</div>
-                                
-                                    <Invoice handleToggle={handleToggle}/>
-                             </Modal>    
-                        
-                        ):(
-                            <div>
-                                No Bills Added
-                            </div>
+                         
+                        <div>
+                        <Modal show={toggle} onHide={handleClose} animation={false}>
+                            {/* <Modal.Header closeButton>
+                                <Modal.Title>Modal Heading</Modal.Title>
+                            </Modal.Header> */}
+                            <Modal.Body>
+                                <Invoice handleToggle={handleToggle}/>
+                             </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant='primary' onClick={handleClose}>Close</Button>
+                            </Modal.Footer>
+                            
+                        </Modal>   
+                        </div>          
                         )
             }
             </div>

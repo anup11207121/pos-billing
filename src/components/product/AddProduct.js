@@ -14,8 +14,11 @@ const AddProduct=(props)=>{
 
     const validationSchema=()=>{
         const validate=Yup.object({
-            name : Yup.string(),
-            price : Yup.number()
+            name : Yup.string('Enter Product name')
+                    .required('product name is required'),
+            price : Yup
+                    .number('Enter the price of the Product')
+                    .required('Price is required')
         })
         return validate
     } 

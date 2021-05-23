@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import {startGetBill,startDeleteBill,startSingleBill} from '../../actions/customerAction'
-import Invoice from './Invoice'
+import {startGetBill,startDeleteBill} from '../../actions/customerAction'
+// import AddModal from './AddModal'
 
 const BillList=(props)=>{
+    // const [showModal,setShowModal]=useState(false)
     const {handleInvoice}=props
     const dispatch=useDispatch()
 
@@ -16,9 +17,9 @@ const BillList=(props)=>{
     const customerData=useSelector((state)=>{
         return  state.bill.customers
     })
-    const productData=useSelector((state)=>{
-       return  state.bill.products
-    })
+    // const productData=useSelector((state)=>{
+    //    return  state.bill.products
+    // })
 
     useEffect(()=>{
         dispatch(startGetBill())
@@ -30,6 +31,10 @@ const BillList=(props)=>{
             dispatch(startDeleteBill(id))
         }
     }
+
+    // const openModal=()=>{
+    //     setShowModal(prev => !prev)
+    // }
     return (
         <div>
             total no of bills -{billing.length}
@@ -56,8 +61,10 @@ const BillList=(props)=>{
                             })}
                             <td>{ele.total}</td>
                             <td><button onClick={()=>{
+                                // openModal()
                                 handleInvoice(ele._id)
                             }} class="btn btn-primary">View</button></td>
+                            {/* <AddModal showModal={showModal} setShowModal={setShowModal}/> */}
 
                             <td><button onClick={()=>{
                                 handleDelete(ele._id)
@@ -68,13 +75,6 @@ const BillList=(props)=>{
                     
                 </tbody>
             </table> 
-
-            
-             {/* <ul>
-                {billData.map((data)=>{
-                    return  <li>{data.customer}</li>
-                })}
-            </ul> */}
         </div>
     )
 }

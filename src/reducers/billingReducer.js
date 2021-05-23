@@ -129,9 +129,6 @@ const billingReducer=(state= customerInitialState,action)=>{
             return {...state , billCustomerData :{} }
         }
 
-        
-
-
 
 // For Cart ITems
 

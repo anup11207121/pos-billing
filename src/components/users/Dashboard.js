@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {startGetCustomers,startGetProduct} from '../../actions/customerAction'
+import {startGetCustomers,startGetProduct,startGetBill} from '../../actions/customerAction'
 import {startGetUser} from '../../actions/userAction'
 import {Card} from 'react-bootstrap'
 
@@ -13,6 +13,7 @@ const Dashboard=(props)=>{
         dispatch(startGetCustomers())
         dispatch(startGetProduct())
         dispatch(startGetUser())
+        dispatch(startGetBill())
     },[])
 
     const customers=useSelector((state)=>{
@@ -21,14 +22,27 @@ const Dashboard=(props)=>{
     const products=useSelector((state)=>{
         return state.bill.products
     })
+    const bills=useSelector((state)=>{
+        return state.bill.billing
+    })
+
     
+    const subTotal=()=>{
+        let count=0
+        const total=bills.map((ele)=>{
+            count+=ele.total
+        })
+        return count
+        console.log(count)
+    }
+    
+
     return (
 
 
         <div className='container'>
-            <div className='row'>
-            {/* <h1>Dashboard</h1> */}
-            <div class ='col-lg-6 mb-4'>
+
+            <div className='col-mb-3'>
                 {/* <h2>Total No of Customers -{customers.length}</h2> */}
                 <Card style={{ width: '18rem' }}>
                     {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
@@ -40,7 +54,7 @@ const Dashboard=(props)=>{
                     </Card.Body>
                 </Card>
             </div>    
-            <div>
+            <div className='col-mb-3'>
                 <Card style={{ width: '18rem' }}>
                     {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                     <Card.Body>
@@ -51,8 +65,30 @@ const Dashboard=(props)=>{
                     </Card.Body>
                 </Card>
             </div>
+             <div>
+                <Card style={{ width: '18rem' }}>
+                    {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                    <Card.Body>
+                        <Card.Title>Total Bills</Card.Title>
+                        <Card.Text>
+                            <h2>{bills.length}</h2>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </div>
+            <div>
+                <Card style={{ width: '18rem' }}>
+                    {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                    <Card.Body>
+                        <Card.Title>Aggregate Bill Amount</Card.Title>
+                        <Card.Text>
+                            <h2>{subTotal()}</h2>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </div>
         </div>    
-        </div>
+        
     )
 }
 export default Dashboard

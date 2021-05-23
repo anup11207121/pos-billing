@@ -119,7 +119,6 @@ const EditCustomers=(props)=>{
                         }}     
                     />
                     </div>
-                
                 </div>
                </div>
                 </div>   
@@ -127,7 +126,6 @@ const EditCustomers=(props)=>{
             )}
         </Formik>
         </div>
-
     )
 }
 

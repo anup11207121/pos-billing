@@ -38,8 +38,6 @@ const LoginUser=(props)=>{
         setIsSubmitted(true)
         // console.log(values)
         dispatch(setUserLogin(values))
-       
-        
         onSubmitProps.resetForm()
     }
     return (
@@ -84,6 +82,7 @@ const LoginUser=(props)=>{
                                     </div>    
                                     <Field type='submit' className="btn btn-primary" value='Login' id='Login'/>
                                 </div>
+                                {/* <p>not registered? <a>Login{props.history.push(/register)}</a> </p> */}
                             </Form>
                              
                          )}

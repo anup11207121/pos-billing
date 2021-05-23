@@ -1,59 +1,64 @@
 import React, { useEffect, useState } from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import {startGetCustomers, billCustData} from '../../actions/customerAction'
-import SelectSearch from 'react-select-search'
+import {startGetCustomers, billCustData, setCustomerDetails} from '../../actions/customerAction'
+import Select from 'react-select'
 
 const BillForm=(props)=>{
+
     const [name,setName]=useState('')
     const [mobile,setMobile]=useState('')
-    // const [date,setDate] = useState('')
+    const [email,setEmail]=useState('')
 
     const dispatch=useDispatch()
-
-    const customers=useSelector((state)=>{
-        return state.bill.customers
-    })
 
     useEffect(()=>{
         dispatch(startGetCustomers())
     },[])
 
-    const addData=(number)=>{
-        const customerData=customers.find((ele)=>{
-            if(number === ele.mobile){
-                return ele
-            }
-        })
-        console.log('customerData',customerData)
-        return customerData
-    }
+    const customers=useSelector((state)=>{
+        return state.bill.customers
+    })
 
-    const handleChange=(e)=>{
-        if(e.target.name === 'mobile'){
-            setMobile(e.target.value)
-        }
-    }
+    const options=customers.map(ele=>({
+        'value' : ele._id,
+        'label' : ele.mobile
+    }))
 
-    const handleBlur=()=>{
-        if(mobile!== ''){
-            const data=addData(mobile)
-            setName(data.name)
+     const handleBlur=()=>{
+         if(mobile!== ''){
+    //         const data=addData(mobile)
+             setName(customerData.name)
+             setEmail(customerData.email)
         }else{
             setName('')
+            setEmail('')
         }
     }
 
-    const handleSubmit=(e)=>{
-        const data=addData(mobile)
-        const formData={
-            customers : data._id,
-            ...data
+    const customerData=customers.find((ele)=>{
+        if(mobile===ele._id){
+            return ele 
         }
-         console.log('formData',formData)
-        dispatch(billCustData(formData))
+    })
+
+    const handleOnChange=(e)=>{
+            setMobile(e.value)
+    }  
+
+    const handleSubmit=(e)=>{
         e.preventDefault()
+        const formData={
+            customers : mobile,
+                ...customerData
+        }
         setName('')
-        setMobile('')
+        setEmail('')
+        // console.log('formData',formData)
+        if(Object.values(customerData).includes('')!== true){
+            dispatch(billCustData(formData))
+        }else{
+            alert('Enter the correct mobile number')
+        }
     }
     return (
         <div class='container'>
@@ -63,35 +68,17 @@ const BillForm=(props)=>{
             <div class='form-row'>
                 
                 <div class="col-lg-3 col-lg-offset-4">
-                <input 
-                    type='text'
-                    value={mobile}
+                <Select 
+                    options={options}
+                    placeholder='select mobile'
+                    onChange={handleOnChange}
                     name='mobile'
-                    placeholder='enter mobile no**'
-                    onChange={handleChange}
                     onBlur={handleBlur}
-                    class="form-control"
-                />
-                </div>
-                {/* <SelectSearch 
-                    options={customers,map((ele)=>{
-                        return <op
-                
-                    renderOption={()=>{
-                        customers.map((ele)=>{
-                            return <input mobile={ele.mobile}/>
-                        })
-                    }}
-                    type='group'
-                    items={customers.mobile}
-                    id='customers'
-                    inputValue={mobile}    
-                    value={customers._id} 
-                    name='mobile' 
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    placeholder='enter customer'
-                /> */}
+                    // getOptionLabel={(option)=>option.mobile}
+                    isSearchable
+                    class='form-control'
+                /> 
+                </div>      
 
                 <div class="col-lg-3 col-lg-offset-4">
                 <input 
@@ -99,7 +86,19 @@ const BillForm=(props)=>{
                     value={name}
                     name='name'
                     placeholder='enter customer name'
-                    class="form-control" 
+                    class="form-control"
+                    onChange={handleOnChange} 
+                />
+                </div>
+
+                <div class="col-lg-3 col-lg-offset-4">
+                <input 
+                    type='text'
+                    value={email}
+                    name='email'
+                    placeholder='customer email'
+                    class="form-control"
+                    onChange={handleOnChange} 
                 />
                 </div>
                 <input type='submit' value='Add' className="btn btn-primary" />

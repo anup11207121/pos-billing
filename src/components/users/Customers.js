@@ -21,7 +21,8 @@ const Customers=(props)=>{
             name : Yup.string()
             .min(5,'must be equal to 5 characters and above')
             .required('Required'),
-            mobile : Yup.string().required('Required'),
+            mobile : Yup.string()
+                        .required('Required'),
             email : Yup.string().email('Email is invalid').required('Required'),
         })
         return validate

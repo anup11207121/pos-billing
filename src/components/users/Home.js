@@ -5,8 +5,9 @@ const Home=(props)=>{
     return (
 
                 <div class='container-fluid img'>
+                    <h1>Welcome to POS Billing System</h1>
                     <img src='./images/BS.jpg'/>
-            <h1>Welcome to POS Billing System</h1>
+            
                 </div>       
             
         
