@@ -1,3 +1,14 @@
+# POS Billing App
+
+### Description
+1. User can Register the details for Login
+2. User securely login to the application
+3. Customer Page to add and update customer details
+4. Dashbord - Total no of customers and Product available
+5. Product Page to add , remove and update product details
+6. Billing Page to generate bill to the specified Customer
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
